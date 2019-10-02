@@ -1,0 +1,13 @@
+.list__item {
+  margin-bottom: 20px;
+}
+
+.card {
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.card img {
+  width: 200px;
+  height: 300px;
+}
