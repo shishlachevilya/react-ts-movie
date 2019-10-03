@@ -1,67 +1,28 @@
 import React, {Component} from 'react';
 import Header from '../Header';
-import SearchForm from '../SearchForm';
-import List from '../List';
-import MovieService from '../../services/movie-service';
+import HomePage from '../HomePage';
+import LibraryPage from '../LibraryPage';
+
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import './App.css';
+import Card from '../Card';
 
-interface IMoviesItem {
-  imdbID: string
-  Poster: string
-  Title: string
-  Type: string
-  Year: string
-}
-
-interface IAppState {
-  movies: Array<IMoviesItem>
-  title: string
-}
-
-export type IHandler = (newTitle: string) => void;
-
-
-class App extends Component<{}, IAppState, IHandler> {
-  movieService = new MovieService();
-
-  state = {
-    movies: [],
-    title: ''
-  };
-
-  componentDidUpdate(IAppState: IAppState, oldState: IAppState) {
-    if (oldState.title === this.state.title) return;
-
-    this.movieService.getAllMovies(this.state.title)
-      .then((movies) => {
-        this.setState({
-          movies: movies.Search
-        })
-      });
-  }
-
-  onSearchHandler: IHandler = (newTitle) => {
-    this.setState({
-      title: newTitle
-    });
-  };
-
+class App extends Component {
   render() {
     return (
-      <div>
-        <Header/>
+      <Router>
+        <div>
+          <Header/>
+          <main className="main">
+            <Route path="/" component={HomePage} exact/>
 
-        <main className="main">
-          <div className="container mt-5">
-            <SearchForm onSearchHandler={this.onSearchHandler}/>
-          </div>
+            <Route path="/detail" render={() => <Card Poster="http://dummyimage.com/300x424/6CC3D5" Title="test title" imdbID="tt1300854" /> } />
 
-          <div className="container-fluid mt-5">
-            <List movies={this.state.movies}/>
-          </div>
-        </main>
-      </div>
+            <Route path="/library" component={LibraryPage}/>
+          </main>
+        </div>
+      </Router>
     );
   }
 }

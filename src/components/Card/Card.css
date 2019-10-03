@@ -1,0 +1,8 @@
+.card {
+  width: calc(20% - 16px);
+  margin: 0 8px 20px;
+}
+
+.card {
+  overflow: hidden;
+}

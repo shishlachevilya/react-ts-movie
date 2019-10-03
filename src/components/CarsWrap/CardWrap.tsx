@@ -1,8 +1,8 @@
 import React from 'react';
 import Spinner from '../Spinner';
 
-import './List.css';
-import ListItem from '../ListItem';
+import './CardWrap.css';
+import Card from '../Card';
 
 
 interface IList {
@@ -15,31 +15,28 @@ interface IList {
   }>
 }
 
-const List: React.FC<IList> = ({movies}) => {
+const CardWrap: React.FC<IList> = ({movies}) => {
 
-  if(!movies) {
+  if (!movies) {
     return <Spinner/>
   }
 
   const items = movies.map((item) => {
     return (
-      <ListItem
+      <Card
         key={item.imdbID}
         imdbID={item.imdbID}
         Poster={item.Poster}
         Title={item.Title}
-        Type={item.Type}
-        Year={item.Year}/>
+      />
     )
   });
 
   return (
-    <div>
-      <ul className="list">
-        {items}
-      </ul>
+    <div className="card-wrap">
+      {items}
     </div>
   );
 };
 
-export default List;
+export default CardWrap;
