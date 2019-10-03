@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {IHandler} from '../App/App';
+import {IHandler} from '../HomePage/HomePage';
 
 
 interface HandleNameChangeInterface {

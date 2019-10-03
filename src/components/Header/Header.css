@@ -1,0 +1,10 @@
+.badge {
+  margin: 0 0 0 16px;
+  padding: 0.375rem 0.75rem;
+  text-transform: uppercase;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+}

@@ -1,7 +1,7 @@
-.list {
+.card-wrap {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -10px;
+  margin: 0 -8px;
   padding: 0;
   list-style: none;
 }
