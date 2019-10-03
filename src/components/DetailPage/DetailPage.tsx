@@ -6,7 +6,7 @@ class DetailPage extends Component {
   render() {
     return (
       <div>
-        detail pae
+        <img src="" alt=""/>
       </div>
     );
   }

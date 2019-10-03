@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import SearchForm from '../SearchForm';
 import MovieService from '../../services/movie-service';
-import CardWrap from '../CarsWrap';
+import CardWrap from '../CardWrap';
 
 import './HomePage.css';
 

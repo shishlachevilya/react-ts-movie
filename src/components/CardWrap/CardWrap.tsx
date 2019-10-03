@@ -16,7 +16,6 @@ interface IList {
 }
 
 const CardWrap: React.FC<IList> = ({movies}) => {
-
   if (!movies) {
     return <Spinner/>
   }
