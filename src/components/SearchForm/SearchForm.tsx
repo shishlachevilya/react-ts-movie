@@ -20,10 +20,6 @@ class SearchForm extends Component<AddFormI> {
     e.preventDefault();
 
     this.props.onSearchHandler(this.state.value);
-
-    this.setState({
-      value: ''
-    });
   };
 
   onChangeSubmit = (event: HandleNameChangeInterface) => {
@@ -49,7 +45,7 @@ class SearchForm extends Component<AddFormI> {
         <div className="form-group">
           <button
             type="submit"
-            className="btn btn-block btn-info"
+            className="btn btn-block btn-outline-primary"
           >
             Search film
           </button>

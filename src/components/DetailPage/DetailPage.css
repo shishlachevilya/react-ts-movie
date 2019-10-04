@@ -1,0 +1,36 @@
+.detail-card {
+  display: flex;
+}
+
+.detail-card .h1 .badge {
+  position: relative;
+  bottom: 5px;
+  font-size: 12px;
+}
+
+.detail-card .detail-card__col:last-child {
+  margin-left: 40px;
+}
+
+.detail-card .detail-card__col h1 {
+  color: #000;
+  font-weight: bold;
+}
+
+.detail-card .detail-card__col p {
+  margin-bottom: .9rem;
+}
+
+.detail-card .detail-card__col p strong {
+  color: #000;
+}
+
+.detail-card .detail-card__col p .badge {
+  font-size: 16px;
+  padding: 6px;
+}
+
+.detail-card .detail-card__col p .votes {
+  font-size: 12px;
+}
+

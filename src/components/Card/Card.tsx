@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import './Card.css';
-import MovieService from "../../services/movie-service";
 
 interface IListItem {
   Poster: string
@@ -12,40 +11,26 @@ interface IListItem {
   imdbID: string
 }
 
-class Card extends Component<IListItem> {
+const Card = ({Poster, Title, imdbID}: IListItem) => {
+  return (
+    <div className="card">
+      <img
+        src={Poster === 'N/A' ? 'http://dummyimage.com/300x424/6CC3D5' : Poster}
+        alt={Title}
+      />
+      <div className="card-body">
+        <h5 className="card-title">{Title}</h5>
 
-  movieService = new MovieService();
+        <Link
+          to={`/detail/${imdbID}`}
+          className="btn btn-primary"
+        >
+          View detail
+        </Link>
 
-  renderInfo = (id: string) => {
-    console.log(this.movieService.getMovieInfo(id))
-  };
-
-  render() {
-    const { Poster, Title, imdbID } = this.props;
-    return (
-      <div className="card">
-        <img
-          src={ Poster === 'N/A' ? 'http://dummyimage.com/300x424/6CC3D5' : Poster }
-          alt={ Title }
-        />
-        <div className="card-body">
-          <h5 className="card-title">{ Title }</h5>
-
-          {/*<Link to="/detail"*/ }
-          {/*      className="btn btn-info"*/ }
-          {/*>*/ }
-          {/*  info*/ }
-          {/*</Link>*/ }
-          <button
-            className="btn btn-success"
-            onClick={ () => this.renderInfo(imdbID) }
-          >
-            info
-          </button>
-        </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Card;

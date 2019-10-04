@@ -59,10 +59,6 @@ class HomePage extends Component<{}, IAppState, IHandler> {
     });
   };
 
-  onInfoHandler: IInfoHandler = (id) => {
-    console.log(id);
-  };
-
   render() {
     return (
       <div>

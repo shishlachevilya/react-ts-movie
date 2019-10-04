@@ -16,15 +16,22 @@ class MovieService {
 
   getMovieInfo = async (id) => {
     const movie = await this.getResource(`${this._apiBase}i=${ id }&plot=full`);
+    console.log(movie);
     return this._transformInfo(movie);
   };
 
   _transformInfo = (movie) => {
     return {
+      Poster: movie.Poster,
       Title: movie.Title,
+      Year: movie.Year,
+      Awards: movie.Awards,
+      imdbRating: movie.imdbRating,
+      imdbVotes: movie.imdbVotes,
+      Actors: movie.Actors,
+      Country: movie.Country,
       Runtime: movie.Runtime,
       Genre: movie.Genre,
-      Awards: movie.Awards,
       Plot: movie.Plot
     }
   };
