@@ -1,6 +1,6 @@
 class MovieService {
 
-  _apiBase = 'http://omdbapi.com/?apikey=5b411c37&';
+  _apiBase = 'https://omdbapi.com/?apikey=5b411c37';
 
   getResource = async (url) => {
     const res = await fetch(url);
@@ -11,12 +11,15 @@ class MovieService {
   };
 
   getAllMovies = async (name) => {
-    return await this.getResource(`${this._apiBase}s=${ name }`);
+    return await this.getResource(`${ this._apiBase }&s=${ name }`);
+  };
+
+  changePage = async (name, number) => {
+    return await this.getResource(`${ this._apiBase }&s=${ name }&page=${number}`);
   };
 
   getMovieInfo = async (id) => {
-    const movie = await this.getResource(`${this._apiBase}i=${ id }&plot=full`);
-    console.log(movie);
+    const movie = await this.getResource(`${ this._apiBase }&i=${ id }&plot=full`);
     return this._transformInfo(movie);
   };
 

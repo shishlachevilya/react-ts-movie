@@ -1,3 +1,7 @@
+.navbar {
+  padding: .5rem 1rem;
+}
+
 .navbar .badge {
   margin: 0 0 0 16px;
   padding: 0.375rem 0.75rem;

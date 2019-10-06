@@ -1,0 +1,8 @@
+.pagination {
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.pagination .page-item {
+  margin:  0 .5rem;
+}
