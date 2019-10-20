@@ -1,0 +1,16 @@
+.demo-notification {
+  position: fixed;
+  bottom: 1.5em;
+  left: 1em;
+  padding: .75em 1.25em;
+  color: #fff;
+  background-color: #000;
+}
+
+.demo-notification span {
+  display: inline-block;
+  margin-left: 1em;
+  font-weight: bold;
+  font-family: inherit;
+  vertical-align: middle;
+}
