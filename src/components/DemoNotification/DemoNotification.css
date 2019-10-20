@@ -1,17 +1,17 @@
 .demo-notification {
   position: fixed;
-  bottom: 1.5em;
-  left: 1em;
-  padding: .75em 1.25em;
-  color: #fff;
+  bottom: 1rem;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  padding: .75rem 1rem;
   background: #1a1a1a;
 }
 
 .demo-notification span {
-  display: inline-block;
   margin-left: 1em;
+  color: #fff;
   font-size: 0.765625rem;
   text-transform: uppercase;
   font-weight: bold;
-  vertical-align: middle;
 }
