@@ -1,8 +1,9 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 import MovieService from '../../services/movie-service';
 import Controls from '../Controls';
 
 import './DetailPage.css';
+import Row from '../Row';
 
 interface IState {
   Poster: string,
@@ -40,7 +41,7 @@ class DetailPage extends Component<{ id: IProps }, IState> {
   };
 
   componentDidMount(): void {
-    const {id} = this.props;
+    const { id } = this.props;
 
     this.renderInfo(id);
   }
@@ -65,34 +66,38 @@ class DetailPage extends Component<{ id: IProps }, IState> {
   };
 
   render() {
-    const {Poster, Title, Year, Rating, Votes, Actors, Plot, Awards, Genre, Country, Runtime} = this.state;
+    const { Poster, Title, Year, Rating, Votes, Actors, Plot, Awards, Genre, Country, Runtime } = this.state;
+
+    const detailCard = (
+      <div className="detail-card">
+        <div className="detail-card__col">
+          <img
+            src={ Poster === 'N/A' ? 'http://dummyimage.com/300x424/6CC3D5' : Poster }
+            alt={ Title }/>
+        </div>
+        <div className="detail-card__col">
+          <h1 className="h1">{ Title } <span className="badge badge-primary">{ Year }</span></h1>
+          <p>{ Plot }</p>
+          <p><strong>Awards:</strong> { Awards }</p>
+          <p><strong>Rating:</strong> <span className="badge badge-primary">{ Rating } / 10</span> <span
+            className="votes">{ Votes } votes</span></p>
+          <p><strong>Actors:</strong> { Actors }</p>
+          <p><strong>Country:</strong> { Country }</p>
+          <p><strong>Genre:</strong> { Genre }</p>
+          <p><strong>Runtime:</strong> { Runtime }</p>
+        </div>
+      </div>
+    );
+
+    const controls = (
+      <Controls/>
+    );
 
     return (
       <Fragment>
-        <div className="container mt-5">
-          <div className="detail-card">
-            <div className="detail-card__col">
-              <img
-                src={Poster === 'N/A' ? 'http://dummyimage.com/300x424/6CC3D5' : Poster}
-                alt={Title}/>
-            </div>
-            <div className="detail-card__col">
-              <h1 className="h1">{Title} <span className="badge badge-primary">{Year}</span></h1>
-              <p>{Plot}</p>
-              <p><strong>Awards:</strong> {Awards}</p>
-              <p><strong>Rating:</strong> <span className="badge badge-primary">{Rating} / 10</span> <span
-                className="votes">{Votes} votes</span></p>
-              <p><strong>Actors:</strong> {Actors}</p>
-              <p><strong>Country:</strong> {Country}</p>
-              <p><strong>Genre:</strong> {Genre}</p>
-              <p><strong>Runtime:</strong> {Runtime}</p>
-            </div>
-          </div>
-        </div>
+        <Row element={ detailCard }/>
 
-        <div className="container mt-5">
-          <Controls/>
-        </div>
+        <Row element={ controls }/>
       </Fragment>
     );
   }

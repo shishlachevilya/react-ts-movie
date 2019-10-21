@@ -1,47 +1,44 @@
-import * as React from 'react';
-import classNames from 'classnames';
+import React, { Component, FC } from 'react';
 
-import './Button.css';
-
-interface IButton {
-  label: string
-  onClick(): void
-  className?: string
-  active?: boolean
-  href?: string
-  disabled?: boolean
-  target?: string
+type ButtonProps = {
+  title: string
 }
 
-const Button: React.FC<IButton> = ({ label, onClick, className, active, disabled, ...attrs }) => {
-
-  const onClickAction = (e: any) => {
-    if (disabled) {
-      e.preventDefault();
-      return;
-    }
-
-    return onClick();
-  };
-
-  const classes = classNames(
-    'btn',
-    className,
-    { active }
-  );
-
-  const Tag = attrs.href ? 'a' : 'button';
-
+const Button: FC<ButtonProps> = ({ title }) => {
   return (
-    <Tag
-      className={ classes }
-      onClick={ onClickAction }
-      disabled={ disabled }
-      { ...attrs }
+    <button
+      type="button"
+      className="btn btn-outline-secondary"
     >
-      { label }
-    </Tag>
+      { title }
+    </button>
   );
 };
 
-export default Button;
+const buttonView = (PassedComponent: any) => {
+  class ControlView extends Component {
+    state = {
+      title: 'Mark as viewed'
+    };
+
+    componentDidMount(): void {
+      console.log(this.state.title);
+    }
+
+    render() {
+      return (
+        <PassedComponent
+          title={ this.state.title }/>
+      )
+    }
+  }
+
+  return ControlView;
+};
+
+export const controlView = () => buttonView(Button);
+
+
+export default {
+  controlView
+}

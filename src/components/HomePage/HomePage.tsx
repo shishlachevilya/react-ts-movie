@@ -4,6 +4,8 @@ import SearchForm from '../SearchForm';
 import MovieService from '../../services/movie-service';
 import Pagination from '../Pagination';
 import CardWrap from '../CardWrap';
+import ErrorMessage from '../ErrorMessage';
+import Row from '../Row';
 
 import './HomePage.css';
 
@@ -19,6 +21,7 @@ interface IAppState {
   movies: Array<IMoviesItem>
   title: string,
   isVisible: boolean
+  hasError: boolean
   page: number
 }
 
@@ -33,13 +36,18 @@ class HomePage extends Component<{}, IAppState, IHandler> {
     movies: [],
     title: '',
     isVisible: false,
+    hasError: false,
     page: 1
   };
 
-  componentDidUpdate(IAppState: IAppState, oldState: IAppState) {
-    if (oldState.title === this.state.title) return;
+  componentDidUpdate(IAppState: IAppState, prevState: IAppState) {
+    if (this.state.title === prevState.title) return;
 
     this.updateMovie();
+  }
+
+  componentDidCatch() {
+    this.setState({ hasError: true })
   }
 
   updateMovie() {
@@ -95,24 +103,34 @@ class HomePage extends Component<{}, IAppState, IHandler> {
   };
 
   render() {
+
+    if (this.state.hasError) {
+      return <ErrorMessage/>
+    }
+
     const { isVisible } = this.state;
+
+    const searchForm = (
+      <SearchForm onSearchHandler={ this.onSearchHandler }/>
+    );
+
+    const cardWrap = (
+      <CardWrap
+        movies={ this.state.movies }
+      />
+    );
+
+    const pagination = (
+      <Pagination count={ this.state.page } page={ this.state.page } onChangePage={ this.onChangePage }/>
+    );
 
     return (
       <div>
-        <div className="container mt-5">
-          <SearchForm onSearchHandler={ this.onSearchHandler }/>
-        </div>
+        <Row element={ searchForm }/>
 
-        { isVisible && <div className="container-fluid mt-5">
-          <CardWrap
-            movies={ this.state.movies }
-          />
-        </div> }
+        { isVisible && <Row element={ cardWrap }/> }
 
-
-        { isVisible && <div className="container mt-5">
-          <Pagination count={ this.state.page } page={ this.state.page } onChangePage={ this.onChangePage }/>
-        </div> }
+        { isVisible && <Row element={ pagination }/> }
       </div>
     );
   }
