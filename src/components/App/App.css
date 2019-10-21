@@ -1,5 +1,44 @@
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --dark-bg: #282c34;
+}
+
+/*[data-theme="dark"] {*/
+/*  --color-bg: #000000;*/
+/*  --color-text: #ffffff;*/
+/*}*/
+
+[data-theme="dark"] body {
+  background-color: var(--dark-bg);
+}
+
+[data-theme="dark"] .navbar {
+  background-color: var(--dark-bg) !important;
+  color: var(--color-bg) !important;
+}
+
+[data-theme="dark"] .btn-link {
+  color: var(--color-bg) !important;
+}
+
+[data-theme="dark"] .btn.btn-dark {
+  background-color: var(--color-bg);
+  color: var(--dark-bg) !important;
+}
+
+[data-theme="dark"] .logo-img {
+  fill: var(--color-bg) !important;
+}
+
+
+[data-theme="light"] body {
+  background-color: var(--color-bg);
+}
+
 body {
   padding-top: 66px;
+  background-color: var(--color-bg);
 }
 
 .app {
