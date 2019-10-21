@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import './Header.css';
-import { FaRunning } from 'react-icons/fa';
 
 type onChangeTheme = (themeName: string) => void;
 
@@ -23,7 +22,6 @@ const Header = () => {
 
   return (
     <div>
-      <FaRunning/>
       <nav className="navbar fixed-top navbar-light bg-light">
         <Link to="/">
           <svg

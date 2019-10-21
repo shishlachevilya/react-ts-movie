@@ -1,4 +1,4 @@
-import React, { Component, FC } from 'react';
+import React, { FC } from 'react';
 
 type ButtonProps = {
   title: string
@@ -15,30 +15,4 @@ const Button: FC<ButtonProps> = ({ title }) => {
   );
 };
 
-const buttonView = (PassedComponent: any) => {
-  class ControlView extends Component {
-    state = {
-      title: 'Mark as viewed'
-    };
-
-    componentDidMount(): void {
-      console.log(this.state.title);
-    }
-
-    render() {
-      return (
-        <PassedComponent
-          title={ this.state.title }/>
-      )
-    }
-  }
-
-  return ControlView;
-};
-
-export const controlView = () => buttonView(Button);
-
-
-export default {
-  controlView
-}
+export default Button
