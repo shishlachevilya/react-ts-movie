@@ -1,12 +1,13 @@
 const themes = {
   dark: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#343a40',
     color: '#ffffff'
   },
   light: {
     backgroundColor: '#ffffff',
-    color: '#1a1a1a'
-  }
+    color: '#343a40'
+  },
+  main: "mediumseagreen"
 };
 
 export default themes;

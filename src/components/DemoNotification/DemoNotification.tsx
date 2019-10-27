@@ -12,7 +12,7 @@ const Notif = styled.div`
   display: flex;
   align-items: center;
   padding: .75rem 1rem;
-  background-color: ${props => props.theme['dark'].backgroundColor};
+  //background-color: ${props => props.theme['dark'].backgroundColor};
 `;
 
 const NotifDesc = styled.span`
@@ -23,7 +23,7 @@ const NotifDesc = styled.span`
   font-weight: bold;
 `;
 
-const DemoNotification = ({theme}: any) => {
+const DemoNotification = () => {
   return (
     <Notif>
       <img src={ Info } alt="info"/>
@@ -32,4 +32,4 @@ const DemoNotification = ({theme}: any) => {
   )
 };
 
-export default withTheme(DemoNotification);
+export default DemoNotification;

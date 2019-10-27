@@ -9,6 +9,7 @@ import Footer from '../Footer';
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import themes from '../../themes';
+import styled from 'styled-components/macro';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -24,15 +25,28 @@ const GlobalStyle = createGlobalStyle`
   .main {
     flex: 1 0 auto;
   }
+`;
+
+const Test = styled.div`
+  padding: 1em;
+  color: ${props => props.theme['dark'].color};
+  background-color: ${props => props.theme['dark'].backgroundColor};
 `
 
 class App extends Component {
+  state = {
+    themeName: 'dark'
+  };
+
   render() {
     return (
       <ThemeProvider theme={ themes }>
         <Router>
           <GlobalStyle/>
           <div className="app">
+
+            <Test>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur debitis deserunt hic inventore numquam possimus sint sunt ullam vero voluptatum! Hic illo, minima nihil possimus similique velit. Amet, consectetur dicta excepturi exercitationem fugit mollitia soluta voluptatum. Commodi consequuntur, cum, dolore dolores eum hic optio possimus qui quos recusandae tempore voluptatem.</Test>
+
             { process.env.NODE_ENV === 'development' ? <DemoNotification /> : null }
             <Header/>
             <main className="main">
