@@ -49,6 +49,8 @@
     "@storybook/addon-notes": "^5.2.3",
     "@storybook/addon-storysource": "^5.2.3",
     "@storybook/addons": "^5.2.3",
-    "@storybook/react": "^5.2.3"
+    "@storybook/react": "^5.2.3",
+    "@types/styled-components": "^4.1.19",
+    "styled-components": "^4.4.0"
   }
 }
