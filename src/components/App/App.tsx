@@ -31,6 +31,8 @@ type AppProps = {
   currentTheme: string
 }
 
+export type IChangeTheme = (currentTheme: string) => void;
+
 const Test = styled.div`
   padding: 1em;
   color: ${props => props.theme.color};
@@ -39,7 +41,13 @@ const Test = styled.div`
 
 class App extends Component<{}, AppProps> {
   state = {
-    currentTheme: 'dark'
+    currentTheme: 'light'
+  };
+
+  changeTheme: IChangeTheme = (currentTheme) =>  {
+    this.setState({
+      currentTheme: currentTheme
+    });
   };
 
   render() {
@@ -53,7 +61,7 @@ class App extends Component<{}, AppProps> {
             <Test>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur debitis deserunt hic inventore numquam possimus sint sunt ullam vero voluptatum! Hic illo, minima nihil possimus similique velit. Amet, consectetur dicta excepturi exercitationem fugit mollitia soluta voluptatum. Commodi consequuntur, cum, dolore dolores eum hic optio possimus qui quos recusandae tempore voluptatem.</Test>
 
             { process.env.NODE_ENV === 'development' ? <DemoNotification /> : null }
-            <Header/>
+            <Header changeTheme={this.changeTheme}/>
             <main className="main">
               <Route path="/" component={ HomePage } exact/>
 

@@ -1,24 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {Link} from 'react-router-dom';
 
 import './Header.css';
+import { IChangeTheme } from '../App/App';
 
-type onChangeTheme = (themeName: string) => void;
+type HeaderProps = {
+  changeTheme: IChangeTheme
+}
 
-
-const Header = () => {
+const Header: FC<HeaderProps> = ({changeTheme}) => {
 
   const styleBtn = {
     marginLeft: '15px'
   };
 
-  const onChangeTheme:onChangeTheme = (themeName) => {
-    const element = document.querySelector('body');
 
-    if (element) {
-      element.dataset.theme = themeName;
-    }
-  };
 
   return (
     <div>
@@ -38,7 +34,7 @@ const Header = () => {
         <div>
           <button
             className="btn btn-dark"
-            onClick={() => onChangeTheme('dark')}
+            onClick={() => changeTheme('dark')}
           >
             dark
           </button>
@@ -46,7 +42,7 @@ const Header = () => {
           <button
             className="btn btn-light"
             style={styleBtn}
-            onClick={() => onChangeTheme('light')}
+            onClick={() => changeTheme('light')}
           >
             light
           </button>
