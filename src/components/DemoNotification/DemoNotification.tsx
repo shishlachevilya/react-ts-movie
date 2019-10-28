@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { withTheme } from 'styled-components';
 
 import Info from './info.svg';
 
@@ -12,7 +11,6 @@ const Notif = styled.div`
   display: flex;
   align-items: center;
   padding: .75rem 1rem;
-  //background-color: ${props => props.theme['dark'].backgroundColor};
 `;
 
 const NotifDesc = styled.span`

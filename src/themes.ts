@@ -1,4 +1,15 @@
-const themes = {
+type Themes = {
+  dark: {
+    backgroundColor: string,
+    color: string
+  },
+  light: {
+    backgroundColor: string,
+    color: string
+  },
+}
+
+const themes: Themes = {
   dark: {
     backgroundColor: '#343a40',
     color: '#ffffff'
@@ -7,7 +18,6 @@ const themes = {
     backgroundColor: '#ffffff',
     color: '#343a40'
   },
-  main: "mediumseagreen"
 };
 
 export default themes;

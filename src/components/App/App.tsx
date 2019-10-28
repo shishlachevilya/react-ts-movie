@@ -27,20 +27,25 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+type AppProps = {
+  currentTheme: string
+}
+
 const Test = styled.div`
   padding: 1em;
-  color: ${props => props.theme['dark'].color};
-  background-color: ${props => props.theme['dark'].backgroundColor};
+  color: ${props => props.theme.color};
+  background-color: ${props => props.theme.backgroundColor};
 `
 
-class App extends Component {
+class App extends Component<{}, AppProps> {
   state = {
-    themeName: 'dark'
+    currentTheme: 'dark'
   };
 
   render() {
     return (
-      <ThemeProvider theme={ themes }>
+      // @ts-ignore
+      <ThemeProvider theme={ themes[this.state.currentTheme] }>
         <Router>
           <GlobalStyle/>
           <div className="app">
