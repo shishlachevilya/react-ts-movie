@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {IonOpenMenu} from '../App/App';
 import './Header.css';
 import {connect} from 'react-redux';
+import {setLightTheme, setDarkTheme} from '../../redux/actions';
 
 type HeaderProps = {
   onOpenMenu: IonOpenMenu
@@ -76,8 +77,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    dark: () => dispatch({ type: 'SET_DARK_THEME' }),
-    light: () => dispatch({ type: 'SET_LIGHT_THEME' })
+    dark: () => dispatch(setDarkTheme),
+    light: () => dispatch(setLightTheme)
   }
 };
 
