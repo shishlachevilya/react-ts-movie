@@ -1,16 +1,17 @@
 import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
-
+import {IonOpenMenu} from '../App/App';
 import './Header.css';
-import {IChangeTheme, IonOpenMenu} from '../App/App';
+import {connect} from 'react-redux';
 
 type HeaderProps = {
-  changeTheme: IChangeTheme
   onOpenMenu: IonOpenMenu
   isOpen: boolean
+  dark: any
+  light: any
 }
 
-const Header: FC<HeaderProps> = ({changeTheme, onOpenMenu, isOpen}) => {
+const Header: FC<HeaderProps> = ({onOpenMenu, isOpen, dark, light}) => {
 
   const styleBtn = {
     marginLeft: '15px'
@@ -34,7 +35,7 @@ const Header: FC<HeaderProps> = ({changeTheme, onOpenMenu, isOpen}) => {
         <div>
           <button
             className="btn btn-dark"
-            onClick={() => changeTheme('dark')}
+            onClick={dark}
           >
             dark
           </button>
@@ -42,7 +43,7 @@ const Header: FC<HeaderProps> = ({changeTheme, onOpenMenu, isOpen}) => {
           <button
             className="btn btn-light"
             style={styleBtn}
-            onClick={() => changeTheme('light')}
+            onClick={light}
           >
             light
           </button>
@@ -67,4 +68,18 @@ const Header: FC<HeaderProps> = ({changeTheme, onOpenMenu, isOpen}) => {
   );
 };
 
-export default Header;
+const mapStateToProps = (state: any) => {
+  return {
+    theme: state.theme
+  }
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    dark: () => dispatch({ type: 'SET_DARK_THEME' }),
+    light: () => dispatch({ type: 'SET_LIGHT_THEME' })
+  }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
