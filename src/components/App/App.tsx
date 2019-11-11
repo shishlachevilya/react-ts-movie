@@ -14,6 +14,7 @@ import MenuBar from '../MenuBar';
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
 import './App.css';
+import {connect} from 'react-redux';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -32,11 +33,9 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 type AppProps = {
-  currentTheme: string
   isOpen: boolean
 }
 
-export type IChangeTheme = (currentTheme: string) => void;
 export type IonOpenMenu = () => void;
 
 const Test = styled.div`
@@ -47,14 +46,7 @@ const Test = styled.div`
 
 class App extends Component<{}, AppProps> {
   state = {
-    currentTheme: 'light',
     isOpen: false
-  };
-
-  changeTheme: IChangeTheme = (currentTheme) => {
-    this.setState({
-      currentTheme: currentTheme
-    });
   };
 
   onOpenMenu: IonOpenMenu = () => {
@@ -70,7 +62,7 @@ class App extends Component<{}, AppProps> {
 
     return (
       // @ts-ignore
-      <ThemeProvider theme={themes[this.state.currentTheme]}>
+      <ThemeProvider theme={themes[this.props.theme]}>
         <Router>
           <GlobalStyle/>
           <div className="app">
@@ -86,14 +78,16 @@ class App extends Component<{}, AppProps> {
               </CSSTransition>
               }
             </TransitionGroup>
-            <Test>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur debitis deserunt hic inventore
+            <Test>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur debitis deserunt hic inventore
               numquam possimus sint sunt ullam vero voluptatum! Hic illo, minima nihil possimus similique velit. Amet,
               consectetur dicta excepturi exercitationem fugit mollitia soluta voluptatum. Commodi consequuntur, cum,
-              dolore dolores eum hic optio possimus qui quos recusandae tempore voluptatem.</Test>
+              dolore dolores eum hic optio possimus qui quos recusandae tempore voluptatem.
+            </Test>
 
-            {process.env.NODE_ENV === 'development' ? <DemoNotification/> : null}
+            {process.env.NODE_ENV === 'development' && <DemoNotification/>}
+
             <Header
-              changeTheme={this.changeTheme}
               onOpenMenu={this.onOpenMenu}
               isOpen={isOpen}
             />
@@ -116,4 +110,10 @@ class App extends Component<{}, AppProps> {
   }
 }
 
-export default App;
+const mapStateToProps = (state: any) => {
+  return {
+    theme: state.theme
+  }
+};
+
+export default connect(mapStateToProps)(App)

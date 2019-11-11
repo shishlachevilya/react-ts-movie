@@ -11,6 +11,7 @@ const Notif = styled.div`
   display: flex;
   align-items: center;
   padding: .75rem 1rem;
+  background-color: #343a40;
 `;
 
 const NotifDesc = styled.span`
