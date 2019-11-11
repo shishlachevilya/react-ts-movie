@@ -1,20 +1,20 @@
-import React, { FC } from 'react';
+import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
 
 import './Header.css';
-import { IChangeTheme } from '../App/App';
+import {IChangeTheme, IonOpenMenu} from '../App/App';
 
 type HeaderProps = {
   changeTheme: IChangeTheme
+  onOpenMenu: IonOpenMenu
+  isOpen: boolean
 }
 
-const Header: FC<HeaderProps> = ({changeTheme}) => {
+const Header: FC<HeaderProps> = ({changeTheme, onOpenMenu, isOpen}) => {
 
   const styleBtn = {
     marginLeft: '15px'
   };
-
-
 
   return (
     <div>
@@ -54,6 +54,13 @@ const Header: FC<HeaderProps> = ({changeTheme}) => {
           <Link to="/library" className="btn btn-link">
             my library
           </Link>
+
+          <button
+            className="btn btn-dark"
+            onClick={() => onOpenMenu()}
+          >
+            {isOpen ? 'close menu' : 'open menu'}
+          </button>
         </div>
       </nav>
     </div>

@@ -1,15 +1,19 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import Header from '../Header';
 import HomePage from '../HomePage';
 import LibraryPage from '../LibraryPage';
 import DetailPage from "../DetailPage";
 import DemoNotification from '../DemoNotification';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import Footer from '../Footer';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import themes from '../../themes';
 import styled from 'styled-components/macro';
+import MenuBar from '../MenuBar';
+import {TransitionGroup, CSSTransition} from "react-transition-group";
+
+import './App.css';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -29,9 +33,11 @@ const GlobalStyle = createGlobalStyle`
 
 type AppProps = {
   currentTheme: string
+  isOpen: boolean
 }
 
 export type IChangeTheme = (currentTheme: string) => void;
+export type IonOpenMenu = () => void;
 
 const Test = styled.div`
   padding: 1em;
@@ -41,39 +47,67 @@ const Test = styled.div`
 
 class App extends Component<{}, AppProps> {
   state = {
-    currentTheme: 'light'
+    currentTheme: 'light',
+    isOpen: false
   };
 
-  changeTheme: IChangeTheme = (currentTheme) =>  {
+  changeTheme: IChangeTheme = (currentTheme) => {
     this.setState({
       currentTheme: currentTheme
     });
   };
 
+  onOpenMenu: IonOpenMenu = () => {
+    this.setState(({isOpen}) => {
+      return {
+        isOpen: !isOpen
+      }
+    })
+  };
+
   render() {
+    const {isOpen} = this.state;
+
     return (
       // @ts-ignore
-      <ThemeProvider theme={ themes[this.state.currentTheme] }>
+      <ThemeProvider theme={themes[this.state.currentTheme]}>
         <Router>
           <GlobalStyle/>
           <div className="app">
+            <TransitionGroup>
+              {isOpen &&
+              <CSSTransition
+                in={isOpen}
+                timeout={1000}
+                classNames="menu-bar"
+                unmountOnExit
+              >
+                <MenuBar/>
+              </CSSTransition>
+              }
+            </TransitionGroup>
+            <Test>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur debitis deserunt hic inventore
+              numquam possimus sint sunt ullam vero voluptatum! Hic illo, minima nihil possimus similique velit. Amet,
+              consectetur dicta excepturi exercitationem fugit mollitia soluta voluptatum. Commodi consequuntur, cum,
+              dolore dolores eum hic optio possimus qui quos recusandae tempore voluptatem.</Test>
 
-            <Test>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur debitis deserunt hic inventore numquam possimus sint sunt ullam vero voluptatum! Hic illo, minima nihil possimus similique velit. Amet, consectetur dicta excepturi exercitationem fugit mollitia soluta voluptatum. Commodi consequuntur, cum, dolore dolores eum hic optio possimus qui quos recusandae tempore voluptatem.</Test>
-
-            { process.env.NODE_ENV === 'development' ? <DemoNotification /> : null }
-            <Header changeTheme={this.changeTheme}/>
+            {process.env.NODE_ENV === 'development' ? <DemoNotification/> : null}
+            <Header
+              changeTheme={this.changeTheme}
+              onOpenMenu={this.onOpenMenu}
+              isOpen={isOpen}
+            />
             <main className="main">
-              <Route path="/" component={ HomePage } exact/>
+              <Route path="/" component={HomePage} exact/>
 
-              <Route path="/detail/:id" render={ ({ match }) => (
+              <Route path="/detail/:id" render={({match}) => (
                 <DetailPage
-                  id={ match.params.id }
+                  id={match.params.id}
                 />
-              ) }/>
+              )}/>
 
-              <Route path="/library" component={ LibraryPage }/>
+              <Route path="/library" component={LibraryPage}/>
             </main>
-
             <Footer/>
           </div>
         </Router>
