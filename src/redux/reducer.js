@@ -15,6 +15,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         theme: 'dark'
       };
+    case 'TOGGLE_OPEN_CLOSE_MENU':
+      return {
+        ...state,
+        isOpen: !state.isOpen
+      };
     default:
       return state
   }

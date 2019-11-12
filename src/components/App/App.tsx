@@ -36,30 +36,16 @@ type AppProps = {
   isOpen: boolean
 }
 
-export type IonOpenMenu = () => void;
-
 const Test = styled.div`
   padding: 1em;
   color: ${props => props.theme.color};
   background-color: ${props => props.theme.backgroundColor};
 `
 
-class App extends Component<{ theme: string }, AppProps> {
-  state = {
-    isOpen: false
-  };
-
-  onOpenMenu: IonOpenMenu = () => {
-    this.setState(({isOpen}) => {
-      return {
-        isOpen: !isOpen
-      }
-    })
-  };
+class App extends Component<{ theme: string, isOpen: boolean }, AppProps> {
 
   render() {
-    const {isOpen} = this.state;
-    const {theme} = this.props;
+    const {theme, isOpen} = this.props;
 
     return (
       // @ts-ignore
@@ -88,10 +74,7 @@ class App extends Component<{ theme: string }, AppProps> {
 
             {process.env.NODE_ENV === 'development' && <DemoNotification/>}
 
-            <Header
-              onOpenMenu={this.onOpenMenu}
-              isOpen={isOpen}
-            />
+            <Header/>
             <main className="main">
               <Route path="/" component={HomePage} exact/>
 
@@ -113,7 +96,8 @@ class App extends Component<{ theme: string }, AppProps> {
 
 const mapStateToProps = (state: any) => {
   return {
-    theme: state.theme
+    theme: state.theme,
+    isOpen: state.isOpen
   }
 };
 
