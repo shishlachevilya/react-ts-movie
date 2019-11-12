@@ -1,15 +1,14 @@
-import React, {Component} from 'react';
+import React, {FC} from 'react';
 import Header from '../Header';
 import HomePage from '../HomePage';
 import LibraryPage from '../LibraryPage';
 import DetailPage from "../DetailPage";
 import DemoNotification from '../DemoNotification';
-import {createGlobalStyle, ThemeProvider} from 'styled-components';
+import styled, {createGlobalStyle, ThemeProvider} from 'styled-components';
 import Footer from '../Footer';
 
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import themes from '../../themes';
-import styled from 'styled-components/macro';
 import MenuBar from '../MenuBar';
 import {TransitionGroup, CSSTransition} from "react-transition-group";
 
@@ -32,67 +31,55 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Main = styled.main`
+  background-color: ${props => props.theme.backgroundColor};
+`;
+
 type AppProps = {
   isOpen: boolean
+  theme: string
 }
 
-const Test = styled.div`
-  padding: 1em;
-  color: ${props => props.theme.color};
-  background-color: ${props => props.theme.backgroundColor};
-`
+const App: FC<AppProps> = ({theme, isOpen}) => {
+  return (
+    // @ts-ignore
+    <ThemeProvider theme={themes[theme]}>
+      <Router>
+        <GlobalStyle/>
+        <div className="app">
+          <TransitionGroup>
+            {isOpen &&
+            <CSSTransition
+              in={isOpen}
+              timeout={1000}
+              classNames="menu-bar"
+              unmountOnExit
+            >
+              <MenuBar/>
+            </CSSTransition>
+            }
+          </TransitionGroup>
 
-class App extends Component<{ theme: string, isOpen: boolean }, AppProps> {
+          {process.env.NODE_ENV === 'development' && <DemoNotification/>}
 
-  render() {
-    const {theme, isOpen} = this.props;
+          <Header/>
+          <Main className="main">
+            <Route path="/" component={HomePage} exact/>
 
-    return (
-      // @ts-ignore
-      <ThemeProvider theme={themes[theme]}>
-        <Router>
-          <GlobalStyle/>
-          <div className="app">
-            <TransitionGroup>
-              {isOpen &&
-              <CSSTransition
-                in={isOpen}
-                timeout={1000}
-                classNames="menu-bar"
-                unmountOnExit
-              >
-                <MenuBar/>
-              </CSSTransition>
-              }
-            </TransitionGroup>
-            <Test>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur debitis deserunt hic inventore
-              numquam possimus sint sunt ullam vero voluptatum! Hic illo, minima nihil possimus similique velit. Amet,
-              consectetur dicta excepturi exercitationem fugit mollitia soluta voluptatum. Commodi consequuntur, cum,
-              dolore dolores eum hic optio possimus qui quos recusandae tempore voluptatem.
-            </Test>
+            <Route path="/detail/:id" render={({match}) => (
+              <DetailPage
+                id={match.params.id}
+              />
+            )}/>
 
-            {process.env.NODE_ENV === 'development' && <DemoNotification/>}
-
-            <Header/>
-            <main className="main">
-              <Route path="/" component={HomePage} exact/>
-
-              <Route path="/detail/:id" render={({match}) => (
-                <DetailPage
-                  id={match.params.id}
-                />
-              )}/>
-
-              <Route path="/library" component={LibraryPage}/>
-            </main>
-            <Footer/>
-          </div>
-        </Router>
-      </ThemeProvider>
-    );
-  }
-}
+            <Route path="/library" component={LibraryPage}/>
+          </Main>
+          <Footer/>
+        </div>
+      </Router>
+    </ThemeProvider>
+  )
+};
 
 const mapStateToProps = (state: any) => {
   return {
