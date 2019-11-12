@@ -1,18 +1,17 @@
 import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
-import {IonOpenMenu} from '../App/App';
 import './Header.css';
 import {connect} from 'react-redux';
-import {setLightTheme, setDarkTheme} from '../../redux/actions';
+import {setLightTheme, setDarkTheme, toggleMenu} from '../../redux/actions';
 
 type HeaderProps = {
-  onOpenMenu: IonOpenMenu
-  isOpen: boolean
   dark: () => void
   light: () => void
+  toggle: () => void
+  isOpen: boolean
 }
 
-const Header: FC<HeaderProps> = ({onOpenMenu, isOpen, dark, light}) => {
+const Header: FC<HeaderProps> = ({isOpen, toggle, dark, light}) => {
 
   const styleBtn = {
     marginLeft: '15px'
@@ -59,7 +58,7 @@ const Header: FC<HeaderProps> = ({onOpenMenu, isOpen, dark, light}) => {
 
           <button
             className="btn btn-dark"
-            onClick={() => onOpenMenu()}
+            onClick={toggle}
           >
             {isOpen ? 'close menu' : 'open menu'}
           </button>
@@ -71,14 +70,16 @@ const Header: FC<HeaderProps> = ({onOpenMenu, isOpen, dark, light}) => {
 
 const mapStateToProps = (state: any) => {
   return {
-    theme: state.theme
+    theme: state.theme,
+    isOpen: state.isOpen
   }
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
     dark: () => dispatch(setDarkTheme),
-    light: () => dispatch(setLightTheme)
+    light: () => dispatch(setLightTheme),
+    toggle: () => dispatch(toggleMenu)
   }
 };
 
