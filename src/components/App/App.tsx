@@ -44,7 +44,7 @@ const Test = styled.div`
   background-color: ${props => props.theme.backgroundColor};
 `
 
-class App extends Component<{}, AppProps> {
+class App extends Component<{ theme: string }, AppProps> {
   state = {
     isOpen: false
   };
@@ -59,10 +59,11 @@ class App extends Component<{}, AppProps> {
 
   render() {
     const {isOpen} = this.state;
+    const {theme} = this.props;
 
     return (
       // @ts-ignore
-      <ThemeProvider theme={themes[this.props.theme]}>
+      <ThemeProvider theme={themes[theme]}>
         <Router>
           <GlobalStyle/>
           <div className="app">

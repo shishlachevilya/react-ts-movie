@@ -8,8 +8,8 @@ import {setLightTheme, setDarkTheme} from '../../redux/actions';
 type HeaderProps = {
   onOpenMenu: IonOpenMenu
   isOpen: boolean
-  dark: any
-  light: any
+  dark: () => void
+  light: () => void
 }
 
 const Header: FC<HeaderProps> = ({onOpenMenu, isOpen, dark, light}) => {
